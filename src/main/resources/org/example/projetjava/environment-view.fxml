@@ -22,13 +22,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.chart.LineChart?>
 <TabPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="org.example.projetjava.EnvironmentController">
     <Tab closable="false" text="Simulation">
         <BorderPane fx:id="simulationPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+                    minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0">
             <left>
-                <VBox prefHeight="670.0" prefWidth="300.0" style="-fx-background-color: lightgrey;"
+                <VBox prefHeight="900.0" prefWidth="300.0" style="-fx-background-color: lightgrey;"
                       BorderPane.alignment="CENTER">
                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CREER UN ENVIRONNEMENT"
                           textAlignment="CENTER" underline="true" wrappingWidth="300.0">
@@ -36,7 +37,7 @@
                             <Font name="DejaVu Sans Bold" size="21.0"/>
                         </font>
                         <VBox.margin>
-                            <Insets top="10.0"/>
+                            <Insets top="30.0" bottom="30.0"/>
                         </VBox.margin>
                     </Text>
                     <GridPane prefHeight="274.0" prefWidth="300.0">
@@ -49,18 +50,36 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         </rowConstraints>
-                        <VBox.margin>
-                            <Insets top="30.0"/>
-                        </VBox.margin>
+
                         <Spinner fx:id="numberOfAnimals" editable="true" GridPane.columnIndex="1"
-                                 GridPane.rowIndex="3"/>
+                                 GridPane.rowIndex="5"/>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Combien ?" textAlignment="CENTER"
+                              GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                            <GridPane.margin>
+                                <Insets/>
+                            </GridPane.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Humain ?" textAlignment="CENTER"
+                              GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets/>
+                            </GridPane.margin>
+                        </Text>
+                        <CheckBox fx:id="humainCheckbox" contentDisplay="GRAPHIC_ONLY"
+                                  mnemonicParsing="false" GridPane.columnIndex="1"
+                                  GridPane.halignment="CENTER" GridPane.rowIndex="1"/>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Plante ?" textAlignment="CENTER"
                               GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <GridPane.margin>
                                 <Insets/>
                             </GridPane.margin>
                         </Text>
+                        <CheckBox fx:id="planteCheckbox" contentDisplay="GRAPHIC_ONLY"
+                                  mnemonicParsing="false" GridPane.columnIndex="1"
+                                  GridPane.halignment="CENTER" GridPane.rowIndex="3"/>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de l'animal ?"
                               textAlignment="CENTER" GridPane.halignment="CENTER">
                             <GridPane.margin>
@@ -68,23 +87,23 @@
                             </GridPane.margin>
                         </Text>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carnivore ?"
-                              GridPane.halignment="CENTER" GridPane.rowIndex="1"/>
+                              GridPane.halignment="CENTER" GridPane.rowIndex="2"/>
                         <TextField fx:id="animalName" promptText="Entrer un nom" GridPane.columnIndex="1"/>
                         <CheckBox fx:id="carnivoreCheckbox" contentDisplay="GRAPHIC_ONLY"
                                   mnemonicParsing="false" GridPane.columnIndex="1"
-                                  GridPane.halignment="CENTER" GridPane.rowIndex="1"/>
+                                  GridPane.halignment="CENTER" GridPane.rowIndex="2"/>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Couleur ?"
-                              GridPane.halignment="CENTER" GridPane.rowIndex="2"/>
+                              GridPane.halignment="CENTER" GridPane.rowIndex="4"/>
                         <ColorPicker fx:id="ColorSelector" editable="true" GridPane.columnIndex="1"
-                                     GridPane.rowIndex="2" value="#FFFFFF"/>
+                                     GridPane.rowIndex="4" value="#FFFFFF"/>
                     </GridPane>
                     <Button fx:id="genererButton" mnemonicParsing="false" text="Générer" textAlignment="CENTER"
                             underline="true">
                         <VBox.margin>
-                            <Insets bottom="20.0" left="110.0"/>
+                            <Insets left="110.0" bottom="30.0"/>
                         </VBox.margin>
                     </Button>
-                    <TitledPane expanded="false" prefHeight="336.0" prefWidth="300.0" text="Propriétés avancées">
+                    <TitledPane prefHeight="500.0" prefWidth="300.0" text="Propriétés avancées">
                         <GridPane prefHeight="187.0" prefWidth="298.0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -99,44 +118,85 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                            </rowConstraints>
-                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Energie initiale"
-                                  textAlignment="CENTER" GridPane.halignment="CENTER"/>
-                            <Spinner fx:id="energieInit" editable="true" GridPane.columnIndex="1"/>
-                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Age maximal"
-                                  GridPane.halignment="CENTER" GridPane.rowIndex="1"/>
-                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rapidité"
-                                  GridPane.halignment="CENTER" GridPane.rowIndex="2"/>
-                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Champ de vision"
-                                  GridPane.halignment="CENTER" GridPane.rowIndex="3"/>
-                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ration d'eau"
-                                  GridPane.halignment="CENTER" GridPane.rowIndex="4"/>
-                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ration de nourriture"
-                                  GridPane.halignment="CENTER" GridPane.rowIndex="5"/>
-                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cout de chasse"
-                                  GridPane.halignment="CENTER" GridPane.rowIndex="6"/>
-                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gain de chasse"
-                                  GridPane.halignment="CENTER" GridPane.rowIndex="7"/>
-                            <Spinner fx:id="ageMax" editable="true" GridPane.columnIndex="1"
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints><!-- Energie Initiale -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Énergie initiale"
+                                  GridPane.rowIndex="0" GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="energieInit" editable="true" GridPane.columnIndex="1"
+                                     GridPane.rowIndex="0"/>
+
+                            <!-- Niveau -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau hiérarchique" GridPane.rowIndex="1"
+                                  GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="niveauSpinner" editable="true" GridPane.columnIndex="1"
                                      GridPane.rowIndex="1"/>
+
+                            <!-- Max Age -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Âge maximal" GridPane.rowIndex="2"
+                                  GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="ageMax" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                            <!-- Rapidité -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rapidité" GridPane.rowIndex="3"
+                                  GridPane.halignment="CENTER"/>
                             <Spinner fx:id="vitesse" editable="true" GridPane.columnIndex="1"
-                                     GridPane.rowIndex="2"/>
-                            <Spinner fx:id="champDeVision" editable="true" GridPane.columnIndex="1"
                                      GridPane.rowIndex="3"/>
-                            <Spinner fx:id="rationEau" editable="true" GridPane.columnIndex="1"
+
+                            <!-- Champ de Vision -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Champ de vision"
+                                  GridPane.rowIndex="4" GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="champDeVision" editable="true" GridPane.columnIndex="1"
                                      GridPane.rowIndex="4"/>
-                            <Spinner fx:id="rationNourriture" editable="true" GridPane.columnIndex="1"
-                                     GridPane.rowIndex="5"/>
+
+                            <!-- Coût de Chasse -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Coût de chasse" GridPane.rowIndex="5"
+                                  GridPane.halignment="CENTER"/>
                             <Spinner fx:id="coutChasse" editable="true" GridPane.columnIndex="1"
-                                     GridPane.rowIndex="6"/>
+                                     GridPane.rowIndex="5"/>
+
+                            <!-- Gain de Chasse -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gain de chasse" GridPane.rowIndex="6"
+                                  GridPane.halignment="CENTER"/>
                             <Spinner fx:id="gainChasse" editable="true" GridPane.columnIndex="1"
+                                     GridPane.rowIndex="6"/>
+
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ration d'eau" GridPane.rowIndex="7"
+                                  GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="rationEau" editable="true" GridPane.columnIndex="1"
                                      GridPane.rowIndex="7"/>
+
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ration de nourriture" GridPane.rowIndex="8"
+                                  GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="rationNourriture" editable="true" GridPane.columnIndex="1"
+                                     GridPane.rowIndex="8"/>
+
+                            <!-- Intelligence -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Intelligence" GridPane.rowIndex="9"
+                                  GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="intelligenceSpinner" editable="true" GridPane.columnIndex="1"
+                                     GridPane.rowIndex="9"/>
+
+                            <!-- Cooperation -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Coopération" GridPane.rowIndex="10"
+                                  GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="cooperationSpinner" editable="true" GridPane.columnIndex="1"
+                                     GridPane.rowIndex="10"/>
+
+                            <!-- Aggression -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Agressivité" GridPane.rowIndex="11"
+                                  GridPane.halignment="CENTER"/>
+                            <Spinner fx:id="aggressionSpinner" editable="true" GridPane.columnIndex="1"
+                                     GridPane.rowIndex="11"/>
                         </GridPane>
                     </TitledPane>
+
                 </VBox>
             </left>
             <center>
-                <Canvas fx:id="canvas" height="669.0" width="982.0" BorderPane.alignment="CENTER">
+                <Canvas fx:id="canvas" height="800.0" width="1200.0" BorderPane.alignment="CENTER">
                     <BorderPane.margin>
                         <Insets bottom="0.4"/>
                     </BorderPane.margin>
@@ -146,7 +206,7 @@
                 <HBox prefHeight="50.0" prefWidth="1014.0" spacing="200.0" style="-fx-background-color: grey;"
                       BorderPane.alignment="CENTER">
                     <padding>
-                        <Insets left="70.0" top="10.0"/>
+                        <Insets left="200.0" top="10.0"/>
                     </padding>
                     <Button fx:id="simulerJournee" mnemonicParsing="false" text="Simuler une journée">
                         <font>
@@ -174,15 +234,13 @@
         </BorderPane>
     </Tab>
     <Tab closable="false" text="Statistiques">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <StackedAreaChart fx:id="stats" prefHeight="714.0" prefWidth="1280.0">
-                <xAxis>
-                    <NumberAxis side="BOTTOM"/>
-                </xAxis>
-                <yAxis>
-                    <NumberAxis side="LEFT"/>
-                </yAxis>
-            </StackedAreaChart>
-        </AnchorPane>
+        <LineChart fx:id="stats" prefHeight="714.0" prefWidth="1280.0">
+            <xAxis>
+                <NumberAxis side="BOTTOM" label="Time" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" label="Population" />
+            </yAxis>
+        </LineChart>
     </Tab>
 </TabPane>

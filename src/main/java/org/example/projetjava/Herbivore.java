@@ -4,16 +4,44 @@ import java.util.List;
 
 public class Herbivore extends Animal {
 
-    public Herbivore(String nom, double energieInitiale, int maxAge, double rapidite, double champDeVision, double rationEau, double rationNourriture) {
-        super(nom, energieInitiale, maxAge, rapidite, champDeVision, rationEau, rationNourriture);
+    protected double rationEau;
+    protected double rationNourriture;
+
+    public Herbivore(String nom, String sexe, String espece, double energieInitiale, int niveau, int maxAge, double rapidite, double champDeVision, double rationEau, double rationNourriture, javafx.scene.paint.Color color) {
+        super(nom, sexe, espece, energieInitiale, niveau, maxAge, rapidite, champDeVision, color);
+        this.rationEau = rationEau;
+        this.rationNourriture = rationNourriture;
     }
 
-    public Herbivore(String nom, double energieInitiale, int maxAge, double rapidite, double champDeVision,
-                     double rationEau, double rationNourriture, javafx.scene.paint.Color color) {
-        super(nom, energieInitiale, maxAge, rapidite, champDeVision, rationEau, rationNourriture, color);
+
+    public Herbivore(String nom, String sexe, String espece, double energieInitiale, int niveau, int maxAge,
+                     double rapidite, double champDeVision, double rationEau, double rationNourriture) {
+        super(nom, sexe, espece, energieInitiale, niveau, maxAge, rapidite, champDeVision);
+        this.rationEau = rationEau;
+        this.rationNourriture = rationNourriture;
     }
 
+    @Override
+    protected Animal creerBebe(Animal autre) {
+        if (autre instanceof Herbivore) {
+            String nomBebe = "Bébé de " + this.nom + " et " + autre.nom;
+            double energieBebe = (this.energie + autre.energie) / 2;
+            double rapiditeBebe = (this.rapidite + autre.rapidite) / 2;
+            double champDeVisionBebe = (this.champDeVision + autre.champDeVision) / 2;
+            double rationEauBebe = (this.rationEau + ((Herbivore) autre).rationEau) / 2;
+            double rationNourritureBebe = (this.rationNourriture + ((Herbivore) autre).rationNourriture) / 2;
 
+
+            System.out.println(this.nom + " se reproduit avec " + autre.nom + ". Un bébé herbivore est né !");
+            Herbivore bebe = new Herbivore(nomBebe, sexealeatoire(), this.espece, energieBebe, 0, this.maxAge,
+                    rapiditeBebe, champDeVisionBebe, rationEauBebe, rationNourritureBebe, this.color);
+            // Enregistrer les parents du bébé
+            bebe.parents.add(this);
+            bebe.parents.add(autre);
+            return bebe;
+        }
+        return null;
+    }
     @Override
     public void seDeplacer() {
         System.out.println(nom + " cherche de la nourriture ou de l'eau.");
@@ -27,12 +55,14 @@ public class Herbivore extends Animal {
                 if (zone.getType().equals("Eau")) {
                     double partEau = zone.consommer(rationEau);
                     this.energie += partEau;
-                    System.out.println(nom + " consomme " + partEau + " de " + zone.getType() + " dans la zone " + zone);
+                    System.out.println(nom + " consomme " + partEau + " de " + zone.getType()
+                            + " dans la zone " + zone);
                     return true;
                 } else if (zone.getType().equals("Nourriture")) {
                     double partNourriture = zone.consommer(rationNourriture);
                     this.energie += partNourriture;
-                    System.out.println(nom + " consomme " + partNourriture + " de " + zone.getType() + " dans la zone " + zone);
+                    System.out.println(nom + " consomme " + partNourriture + " de " + zone.getType()
+                            + " dans la zone " + zone);
                     return true;
                 }
             }
@@ -40,50 +70,16 @@ public class Herbivore extends Animal {
         return false; // Pas de ressource disponible à proximité
     }
 
-    public void reagirAuPredateur(List<Animal> animaux) {
-        for (Animal autre : animaux) {
-            if (autre instanceof Predateur && autre.estVivant()) {
-                double distance = calculerDistance(autre.getX(), autre.getY());
-                if (champDeVision >= distance) {
-                    double probDetection = 1 - distance / champDeVision;
-                    System.out.println(probDetection);
-                    if (Math.random() < probDetection) { // Détection aléatoire basée sur la distance
-                        System.out.println(nom + " détecte un prédateur (" + autre.nom + ") et tente de fuir !");
-                        super.seDeplacer(); // Déplacement dans une direction aléatoire
-                        return;
-                    }
-                }
-            }
-        }
-        System.out.println(nom + " ne détecte aucun prédateur à proximité.");
-    }
-
-    public void formerGroupe(List<Animal> animaux) {
-        double sommeX = this.x;
-        double sommeY = this.y;
-        int nombreProches = 1;
-
-        for (Animal autre : animaux) {
-            if (autre instanceof Herbivore && autre != this && calculerDistance(autre.getX(), autre.getY()) <= champDeVision) {
-                sommeX += autre.getX();
-                sommeY += autre.getY();
-                nombreProches++;
-            }
-        }
-
-        if (nombreProches > 1) {
-            int nouvelleX = (int) (sommeX / nombreProches);
-            int nouvelleY = (int) (sommeY / nombreProches);
-            System.out.println(nom + " se rapproche du groupe. Nouvelle position : (" + nouvelleX + ", " + nouvelleY + ")");
-            this.x = nouvelleX;
-            this.y = nouvelleY;
-        }
-    }
 
     @Override
     public void interagirAvecEnvironnement() {
         System.out.println(nom + " surveille les alentours.");
     }
 
+    @Override
+    public String toString() {
+        return String.format("Herbivore [Nom: %s, Energie: %.2f, Sexe: %s]",
+                nom, energie, sexe);
+    }
 
 }

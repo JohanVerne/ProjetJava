@@ -21,6 +21,11 @@ public class Saison {
 
     @Override
     public String toString() {
-        return String.format("org.example.projetjava.Saison [Nom: %s, Modificateurs - Nourriture: %.2f, Eau: %.2f]", nom, modificateurNourriture, modificateurEau);
+        return String.format("Saison [Nom: %s, Modificateurs - Nourriture: %.2f, Eau: %.2f]",
+                nom, modificateurNourriture, modificateurEau);
+    }
+
+    public String getNom() {
+        return nom;
     }
 }

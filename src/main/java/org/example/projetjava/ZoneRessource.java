@@ -37,6 +37,6 @@ public class ZoneRessource {
 
     @Override
     public String toString() {
-        return String.format("org.example.projetjava.ZoneRessource [Type: %s, Position: (%d, %d), Quantité: %.2f]", type, x, y, quantite);
+        return String.format("ZoneRessource [Type: %s, Position: (%d, %d), Quantité: %.2f]", type, x, y, quantite);
     }
 }
