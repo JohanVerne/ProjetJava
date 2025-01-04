@@ -140,6 +140,8 @@ public class EnvironmentController {
             //canvas.setHeight(tailleCarte * 10);
             System.out.println("Ecosysteme.tailleCarte: " + Ecosysteme.tailleCarte);
 
+            addLargeResourceZones(5, 10, "Eau");
+
         } else {
             System.err.println("Cannot bind ColorSelector. Either ViewModel or ColorSelector is null.");
         }
